@@ -8,9 +8,9 @@ export async function middleware(request: NextRequest) {
   const verifyEmailToken = cookieStore.get('verifyEmail')
   const pathname = request.nextUrl.pathname
 
-  const publicRoutes = ['/login', '/signup']
+  const publicRoutes = ['/login', '/signup', '/']
   const protectedRoutes = [
-    '/',
+    '/home',
     '/create-notes',
     '/to-do-list',
     '/to-do-create',

@@ -1,130 +1,146 @@
 "use client"
 
-import React, { useState } from 'react'
-import { FcTodoList } from "react-icons/fc";
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
+import { useInView } from 'react-intersection-observer'
+import { motion } from 'framer-motion'
+import Typewriter from 'typewriter-effect'
+import { LuNotebookPen, LuListTodo, LuTabletSmartphone, LuMonitorSmartphone} from "react-icons/lu";
+import { BsRobot } from "react-icons/bs";
+import { MdOutlineDarkMode  } from "react-icons/md";
 
-const page = () => {
-  const router = useRouter()
-  const [task , setTask]= useState("")
-  const [desc, setDesc] = useState("")
-  const [mainTask, setMainTask] = useState<Task[]>([])
-
-  type Task ={
-    task:string,
-    desc:string
-  }
-  const handelSubmit=(e:any)=>{
-    e.preventDefault()
-
-    setMainTask([...mainTask, {task, desc}])
-
-    setTask("")
-    setDesc("")
-  }
-
-  const handleLogout = async () => {
-    try {
-      await axios.get('/api/logout')
-      toast.success('🥺 Logged Out, See you again!')
-      router.push('/login')
-    } catch (err) {
-      console.error('Logout failed:', err)
-      toast.error('❌ Failed to logout')
-    }
-  }
-
-  let renderTask;
-
-if (mainTask.length > 0) {
-  renderTask = mainTask.map((t, index) => {
-    return (
-      <div
-        key={index}
-        className='px-2 py-4 border-2 border-zinc-600 rounded-xl min-h-40 mb-2'
-      >
-        <h4 className='text-2xl font-bold text-zinc-100'>{t.task}</h4>
-        <p className='text-sm text-zinc-300 font-semibold'>{t.desc}</p>
-      </div>
-    );
-  });
-} else {
-  renderTask = <h2 className='text-yellow-500 text-3xl font-bold'>🙅 No task to show!</h2>;
-}
-
-  
- 
+export default function landingPage() {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  })
 
   return (
-    <div className='px-4 py-2'>
-      <div className='flex justify-between items-center'>
-        <div className='flex flex-row'>
-          <FcTodoList className='text-4xl font-bold' /> 
-          <h1 className='text-3xl px-4 font-bold text-blue-500 mb-1'>To do list</h1>
+    <div>
+      {/* navbar */}
+      <div className="nav-bar px-2 md:px-6 py-4 flex justify-between items-center mb-8">
+        <div className="md:p-1">
+          <h1 className="text-2xl md:text-3xl font-[600] intel-tight">
+            <span className="text-[#91ff00]">Scri</span>bbly
+          </h1>
         </div>
-        <button className='px-6 py-1.5 bg-red-600 rounded-xl 
-        font-medium text-xl hover:bg-red-700'
-        onClick={handleLogout}
-        >Logout</button>
-      </div>
-      {/* <hr className='bg-zinc-800 rounded-xl border-0 h-0.5' /> */}
 
-      <div className='px-4 py-2 mt-4 mb-4 flex flex-col justify-center items-center'>
-      <form className='px-4 py-8 border-2 border-zinc-800 bg-[#111111] rounded-lg'>
-       <div className='flex flex-col gap-1'>
-        <label htmlFor="task" className='mt-2 ml-2 text-zinc-300'>Enter your task here: </label>
-        <input type="text" className='text-base font-extralight border-2 lg:min-w-[20rem]
-         px-4 py-2 rounded-lg text-zinc-300 border-zinc-600 focus:outline-blue-500 focus:text-zinc-100'
-         placeholder='Task...'
-         value={task}
-         onChange={(e)=>{
-          setTask(e.target.value)
-         }}
-         />
-       </div>
-         <br />
-
-       <div className='flex flex-col gap-1'>
-        <label htmlFor="desc" className='ml-2 text-zinc-300'>Enter task description here: </label>
-        <textarea
-         id='desc'
-         className='text-base font-extralight border-2 focus:text-zinc-100
-         px-4 py-2 rounded-lg text-zinc-300 focus:outline-blue-500 lg:min-w-[20rem]
-         resize-none overflow-y-auto min-h-[100px] border-zinc-600'
-         placeholder='Task description...'
-         value={desc}
-         onChange={(e)=>{
-          setDesc(e.target.value)
-         }}
-         />
-       </div>
-         <br />
-
-        <div className='flex justify-center'>
-          <button className='text-zinc-400 border-2  border-zinc-500 px-8 py-2 font-semibold
-          rounded-lg hover:border-zinc-800 hover:bg-zinc-100
-        hover:text-zinc-950 place-items-center'
-          onClick={handelSubmit}
-          >Add Task</button>
+        <div className="md:p-1 cursor-pointer">
+          <a href='https://www.anujbelsare.tech/about' className="md:px-4 md:py-2 px-3 py-1.5 text-[#ffffff] text-sm md:font-medium md:text-xl
+          md:border-2 border-[1.6px] rounded-full border-[#363f49] hover:bg-zinc-700">Contact Us</a>
         </div>
-      </form>
       </div>
-      {/* <hr className='bg-zinc-800 rounded-xl border-0 h-0.5' /> */}
 
-      {/* to show the notes */}
-      {mainTask.length>0 ? 
-      <div className='px-2 py-4 mt-8 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-3'>
-        {renderTask}
-      </div>:
-      <div className='px-2 py-4 mt-8 flex items-center justify-center'>
-        {renderTask}
+      {/* hero section */}
+      <div className="mt-20 w-full p-4 flex justify-center items-center md:text-pretty sm:text-balance">
+        <div className="max-w-[75%]">
+          <h2 className="text-6xl md:text-8xl font-extrabold text-[#ffffff] inter-tight tracking-tight">
+            <span className="text-[#91ff00]">Scribbly</span>, your Smart Notebook & Task Buddy
+          </h2>
+        </div>
       </div>
-      }
 
+      {/* hero section buttons */}
+      <div className="flex gap-4 items-center justify-center mt-18">
+        <div className='cursor-pointer'>
+          <a href='/signup' className="md:px-14 md:py-4 px-8 py-3 text-black
+          text-lg font-semibold md:text-2xl border-2 rounded-full
+          border-[#91ff00ca] bg-[#91ff00] hover:bg-[#e2ffbe] hover:border-[#e2ffbe]">Signup</a>
+        </div>
+
+        <div className='cursor-pointer'>
+          <a href='/login' className="md:px-14 md:py-4 px-8 py-3 text-[#91ff00]
+          text-lg font-semibold md:text-2xl border-2 rounded-full
+          border-[#91ff00] hover:bg-[#231f1f]">Login</a>
+        </div>
+      </div>
+
+      {/* animated heading section */}
+      <div className="w-full mt-26 min-h-[100px]">
+        <div ref={ref} className="flex justify-center">
+          {inView && (
+            <motion.h3
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="text-4xl md:text-6xl font-[500] text-center"
+            >
+              <Typewriter
+                options={{
+                  delay: 45,
+                  cursor: '|',
+                }}
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString("Scribbly comes loaded with powerful features")
+                    .start()
+                }}
+              />
+            </motion.h3>
+          )}
+        </div>
+      </div>
+
+      {/* features.. */}
+      <div className='w-full grid grid-cols-1 md:grid-cols-3 p-12 gap-4 md:gap-12'>
+        
+        <div className='card px-4 py-4 border-2 border-[#363f49]
+          min-h-68 rounded-2xl hover:scale-105 hover:transition-transform'>
+          <div className='rounded-full p-2 flex justify-center items-center'>
+            <LuNotebookPen size={80} className='stroke-1 text-[#91ff00]'/></div>
+          <h4 className='text-3xl font-medium mt-3'>Rich Text Notes</h4>
+          <p className='text-lg md:font-medium mt-3 text-zinc-400'>Format your thoughts with bold, italics, lists & more perfect for class notes, quick ideas, or journaling.</p>
+        </div>
+
+        <div className='card px-4 py-4 border-2 border-[#363f49]
+          min-h-68 rounded-2xl hover:scale-105 hover:transition-transform'>
+          <div className='rounded-full p-2 flex justify-center items-center'>
+            <LuListTodo size={80} className='stroke-1 text-[#91ff00]'/></div>
+          <h4 className='text-3xl font-medium mt-3'>Smart To-Do Lists</h4>
+          <p className='text-lg md:font-medium mt-3 text-zinc-400'>Create, organize, and check off your tasks with a clean, clutter-free interface.</p>
+        </div>
+
+        <div className='card px-4 py-4 border-2 border-[#363f49]
+          min-h-68 rounded-2xl hover:scale-105 hover:transition-transform'>
+          <div className='rounded-full p-2 flex justify-center items-center'>
+            <LuMonitorSmartphone  size={80} className='stroke-1 text-[#91ff00]'/></div>
+          <h4 className='text-3xl font-medium mt-3'>Responsive Design</h4>
+          <p className='text-lg md:font-medium mt-3 text-zinc-400'>Scribbly works flawlessly across mobile, tablet, and desktop — stay productive anywhere.</p>
+        </div>
+
+        <div className='card px-4 py-4 border-2 border-[#363f49]
+          min-h-68 rounded-2xl hover:scale-105 hover:transition-transform'>
+          <div className='rounded-full p-2 flex justify-center items-center'>
+            <LuTabletSmartphone  size={80} className='stroke-1 text-[#91ff00]'/></div>
+          <h4 className='text-3xl font-medium mt-3'>Minimal & Clean UI</h4>
+          <p className='text-lg md:font-medium mt-3 text-zinc-400'>Focus on what matters most with a distraction-free, modern layout.</p>
+        </div>
+
+        <div className='card px-4 py-4 border-2 border-[#363f49]
+          min-h-68 rounded-2xl hover:scale-105 hover:transition-transform'>
+          <div className='rounded-full p-2 flex justify-center items-center'>
+            <MdOutlineDarkMode  size={80} className='stroke-0 text-[#91ff00]'/></div>
+          <h4 className='text-3xl font-medium mt-3'>Dark Mode Ready</h4>
+          <p className='text-lg md:font-medium mt-3 text-zinc-400'>Reduce eye strain and match your vibe with beautiful dark theme support.</p>
+        </div>
+
+        <div className='card px-4 py-4 border-2 border-[#363f49]
+          min-h-68 rounded-2xl hover:scale-105 hover:transition-transform'>
+          <div className='rounded-full p-2 flex justify-center items-center'>
+            <BsRobot  size={80} className='stroke-0 text-[#91ff00]'/></div>
+          <h4 className='text-3xl font-medium mt-3'>AI Summarizer (Upcoming)</h4>
+          <p className='text-lg md:font-medium mt-3 text-zinc-400'>Let Scribbly summarize long notes into short bullets using smart AI.</p>
+        </div>
+      </div>
+
+      {/* footer */}
+      <div className='w-full bg-[#181c22] px-8 py-2'>
+        <h1 className="text-2xl md:text-3xl font-[600] intel-tight">
+            <span className="text-[#91ff00]">Scri</span>bbly
+        </h1>
+        <p className='text-sm md:text-lg  text-zinc-300'>Fast. Minimal. Beautifully yours.</p>
+        <div className='flex items-center justify-center mt-2'>
+          <p className='text-zinc-500 text-lg md:text-xl font-medium'>Made with 💖 by <a href="https://www.anujbelsare.tech/about">Anuj</a></p>
+        </div>
+      </div>
     </div>
   )
 }
-
-export default page
