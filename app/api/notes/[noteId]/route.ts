@@ -3,12 +3,14 @@ import Notes from "@/models/notes";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { noteId: string } }
-) {
+function extractNoteId(req: NextRequest) {
+  const urlParts = req.nextUrl.pathname.split("/");
+  return urlParts[urlParts.length - 1]; // get noteId from URL
+}
+
+export async function GET(req: NextRequest) {
   await connect();
-  const noteId = params.noteId;
+  const noteId = extractNoteId(req);
 
   if (!mongoose.Types.ObjectId.isValid(noteId)) {
     return NextResponse.json({ error: "Invalid Note ID" }, { status: 400 });
@@ -25,12 +27,9 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { noteId: string } }
-) {
+export async function PUT(req: NextRequest) {
   await connect();
-  const noteId = params.noteId;
+  const noteId = extractNoteId(req);
 
   if (!mongoose.Types.ObjectId.isValid(noteId)) {
     return NextResponse.json({ error: "Invalid Note ID" }, { status: 400 });
@@ -55,12 +54,9 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { noteId: string } }
-) {
+export async function DELETE(req: NextRequest) {
   await connect();
-  const noteId = params.noteId;
+  const noteId = extractNoteId(req);
 
   if (!mongoose.Types.ObjectId.isValid(noteId)) {
     return NextResponse.json({ error: "Invalid Note ID" }, { status: 400 });
