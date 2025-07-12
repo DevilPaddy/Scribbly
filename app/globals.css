@@ -27,3 +27,26 @@ body {
   font-family: 'Inter Tight', sans-serif;
 }
 
+/* Custom scrollbar for input & textarea */
+textarea::-webkit-scrollbar,
+input::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+textarea::-webkit-scrollbar-track,
+input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb,
+input::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+textarea::-webkit-scrollbar-thumb:hover,
+input::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
