@@ -9,7 +9,7 @@ interface SendMailOptions {
 export const sendEmail = async ({ to, subject, html }: SendMailOptions) => {
   try {
     const info = await transport.sendMail({
-      from: `"My Notes" <${process.env.EMAIL_USER}>`,
+      from: `"Scribbly" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html,
