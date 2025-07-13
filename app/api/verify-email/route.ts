@@ -3,12 +3,14 @@ import User from '@/models/user';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { sendEmail } from '@/email/sendEmail';
+import { welcomeEmailTemplate } from '@/email/templets/welcomeEmail';
 
 connect();
 
 export async function POST(req: NextRequest) {
   try {
-    const { otp } = await req.json();
+    const { otp }:{otp:string} = await req.json();
 
     // 🍪 Get email from cookie
     const cookieStore = await cookies(); // ❌ No need for `await` here
@@ -62,6 +64,14 @@ export async function POST(req: NextRequest) {
       httpOnly: true,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
+    });
+
+    // ✅ send welcome email...
+    const emailContent = welcomeEmailTemplate(user.username);
+    await sendEmail({
+      to: user.email,
+      subject: emailContent.subject,
+      html: emailContent.html,
     });
 
     return response;

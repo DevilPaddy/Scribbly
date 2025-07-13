@@ -9,7 +9,7 @@ export const welcomeEmailTemplate = (username: string) => ({
     </p>
 
     <div style="margin: 25px 0; text-align: center;">
-      <a href="https://mynotes.codzy.tech/login" target="_blank"
+      <a href="https://Scribbly.codzy.tech/login" target="_blank"
         style="background-color: #3b82f6; color: #ffffff; padding: 12px 24px; font-size: 16px; border-radius: 6px; text-decoration: none; display: inline-block; font-weight: 500;">
         🚀 Get Started
       </a>

@@ -33,8 +33,8 @@ export async function POST(req: NextRequest) {
     });
 
     // Generate OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    const otp = Math.floor(100000 + Math.random() * 900000).toString()
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000) // 10 min
 
     newUser.otp = otp;
     newUser.otpExpiry = otpExpiry;
