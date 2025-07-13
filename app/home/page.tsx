@@ -16,8 +16,7 @@ export default function Home() {
             <h4 className="text-lg font-medium">📝 Notes</h4>
           </Link>
 
-{/* replace href="/listNotes" with to do when it is created... */}
-          <Link href="/listNotes" className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 w-40 text-center hover:bg-[#2a2a2a] transition">
+          <Link href="/listToDo" className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 w-40 text-center hover:bg-[#2a2a2a] transition">
             <h4 className="text-lg font-medium">✅ To do's</h4>
           </Link>
         </div>
