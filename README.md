@@ -49,13 +49,13 @@ JWT-based authentication using secure cookies.
 #### 🏡 Home page
 <img src="screenshots/pic2.png" alt="Home Page Screenshot" width="100%" />
 
-#### 🏡 Notes page
+#### 📝 Notes page
 <img src="screenshots/pic3.png" alt="Home Page Screenshot" width="100%" />
 
-#### 🏡 Todo's page
+#### 📃 Todo's page
 <img src="screenshots/pic4.png" alt="Home Page Screenshot" width="100%" />
 
-#### 🏡 Profile page
+#### 🙍 Profile page
 <img src="screenshots/pic5.png" alt="Home Page Screenshot" width="100%" />
 
 ---
